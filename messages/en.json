@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "title": "Pure Roots",
+    "description": "Traceable cold-pressed mustard oil — farm to bottle."
+  },
+  "nav": {
+    "home": "Home",
+    "verify": "Verify",
+    "admin": "Admin"
+  },
+  "home": {
+    "brand": "Pure Roots",
+    "headline": "Oil you can trace to the farm.",
+    "subhead": "Every bottle carries a batch code. Scan or look up to see farmer, lab, and pass status.",
+    "ctaVerify": "Verify a bottle",
+    "ctaLearn": "See how proof works",
+    "pillarsTitle": "Proof pillars",
+    "pillarFarm": "Named farmers",
+    "pillarFarmBody": "Know who grew the seed and where.",
+    "pillarLab": "Independent lab",
+    "pillarLabBody": "RI, AITC, argemone, acid value — published per batch.",
+    "pillarSeal": "Sealed batch codes",
+    "pillarSealBody": "ACTIVE only after a PASS lab result.",
+    "evidenceTitle": "Evidence (stub)",
+    "evidenceBody": "Lab certificates and batch photos will appear here in a later release.",
+    "priceTitle": "Honest price",
+    "priceBody": "You pay for oil that was tested — not for empty claims.",
+    "verifyStripTitle": "Already have a code?",
+    "verifyStripBody": "Enter a batch or bottle serial to see the public record.",
+    "verifyStripCta": "Go to verify"
+  },
+  "verify": {
+    "title": "Verify authenticity",
+    "subtitle": "Enter a batch code (e.g. PR-114) or bottle serial (e.g. PR-114-0832).",
+    "placeholder": "PR-114 or PR-114-0832",
+    "submit": "Look up",
+    "hint": "Try seed data: PR-114 or PR-114-0832",
+    "loading": "Looking up…",
+    "notFound": "No record found for that code.",
+    "error": "Could not reach the API. Is the backend running?",
+    "batch": "Batch",
+    "status": "Status",
+    "product": "Product",
+    "farmer": "Farmer",
+    "location": "Location",
+    "lab": "Lab",
+    "labStatus": "Lab result",
+    "testedAt": "Tested",
+    "params": "Parameters",
+    "serial": "Serial",
+    "ri": "Refractive index",
+    "aitc": "AITC",
+    "argemone": "Argemone",
+    "acidValue": "Acid value",
+    "back": "New lookup"
+  },
+  "admin": {
+    "loginTitle": "Admin login",
+    "loginBody": "OTP / JWT scaffold — coming soon.",
+    "batchesTitle": "Batches",
+    "batchesBody": "Admin batch list stub. Wire to API later."
+  },
+  "footer": {
+    "tagline": "Farm-traced mustard oil.",
+    "rights": "© Pure Roots"
+  }
+}

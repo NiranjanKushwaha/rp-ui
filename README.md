@@ -1,14 +1,30 @@
 # rp-ui
 
-Private GitHub repo target: **`rp-ui`**
+Next.js storefront for Pure Roots (Phase-0 Trust Wedge). Responsive web → later RN WebView.
 
-## Purpose
-Customer storefront + verify pages + account flows (and later admin UI if colocated), built as a responsive **Next.js** web app. Same build is loaded inside the **React Native WebView**.
+## Run
 
-## Status
-Scaffolding only — application code will be added here.
+```bash
+cp .env.example .env.local
+npm install
+npm run dev
+```
 
-## Related
-- Design references: `../rp-research/AboutProject/stitch_markdown_design_system/`
-- UI system: `../rp-research/AboutProject/UI-lookAndFeel.md`
-- i18n: `../rp-research/AboutProject/Localization-Indian-Languages.md`
+- App: http://localhost:3000/en  
+- Hindi: http://localhost:3000/hi  
+- Verify: http://localhost:3000/en/verify  
+- Try code: `PR-114-0832` (API must be on :4000)
+
+## Stack
+
+- Next.js App Router + Tailwind  
+- next-intl (`en` / `hi`)  
+- Design tokens: Pure Roots (Fraunces + Instrument Sans)
+
+## Routes
+
+- `/{locale}` — Homepage  
+- `/{locale}/verify` — Lookup  
+- `/{locale}/verify/[code]` — Result  
+- `/{locale}/admin/login` — stub  
+- `/{locale}/admin/batches` — stub list  
