@@ -4,22 +4,29 @@ type Props = {
 };
 
 export function BadgeLabPass({ status, label }: Props) {
-  const pass = status.toUpperCase() === 'PASS';
-  const active = status.toUpperCase() === 'ACTIVE';
-  const failed =
-    status.toUpperCase() === 'FAIL' || status.toUpperCase() === 'FAILED';
+  const s = status.toUpperCase();
+  const pass = s === 'PASS' || s === 'ACTIVE';
+  const failed = s === 'FAIL' || s === 'FAILED';
+  const pending = s === 'PENDING';
 
   let classes = 'bg-hero-mist text-muted border-border';
-  if (pass || active) {
+  let dot = 'bg-muted';
+  if (pass) {
     classes = 'bg-pass-soft text-pass border-pass/20';
+    dot = 'bg-pass';
   } else if (failed) {
-    classes = 'bg-red-50 text-red-800 border-red-200';
+    classes = 'bg-fail-soft text-fail border-fail/20';
+    dot = 'bg-fail';
+  } else if (pending) {
+    classes = 'bg-pending-soft text-pending border-pending/20';
+    dot = 'bg-pending';
   }
 
   return (
     <span
-      className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold tracking-wide ${classes}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[1px] ${classes}`}
     >
+      <span className={`h-1.5 w-1.5 rounded-full ${dot}`} />
       {label ?? status}
     </span>
   );

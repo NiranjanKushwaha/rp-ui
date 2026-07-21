@@ -12,6 +12,12 @@
   --pass: #1b7a4e;
   --pass-soft: #e6f5ee;
   --hero-mist: #e8f1ef;
+  --forest-deep: #0f1f1c;
+  --forest-light: #1a3833;
+  --fail: #b3261e;
+  --fail-soft: #fdecea;
+  --pending: #8a6d1a;
+  --pending-soft: #faf3dd;
 }
 
 @theme inline {
@@ -26,6 +32,12 @@
   --color-pass: var(--pass);
   --color-pass-soft: var(--pass-soft);
   --color-hero-mist: var(--hero-mist);
+  --color-forest-deep: var(--forest-deep);
+  --color-forest-light: var(--forest-light);
+  --color-fail: var(--fail);
+  --color-fail-soft: var(--fail-soft);
+  --color-pending: var(--pending);
+  --color-pending-soft: var(--pending-soft);
   --font-display: var(--font-fraunces);
   --font-sans: var(--font-instrument);
 }
@@ -40,4 +52,18 @@ h1,
 h2,
 h3 {
   font-family: var(--font-fraunces), Georgia, serif;
+}
+
+::selection {
+  background: var(--pass-soft);
+  color: var(--brand-deep);
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
