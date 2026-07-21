@@ -125,7 +125,7 @@ export default async function VerifyResultPage({ params }: Props) {
         className={`flex flex-col items-center gap-3 rounded-xl border p-4 text-center sm:flex-row sm:items-start sm:p-5 sm:text-left ${styles.wrap}`}
       >
         <span
-          className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${styles.icon}`}
+          className={`anim-badge-pop flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${styles.icon}`}
         >
           {state === 'pass' ? (
             <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
