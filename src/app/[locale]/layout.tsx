@@ -7,6 +7,7 @@ import { Header } from '@/components/pure-roots/header';
 import { Footer } from '@/components/pure-roots/footer';
 import { ThemeProvider } from '@/lib/theme';
 import { routing } from '@/i18n/routing';
+import { localeMeta, type AppLocale } from '@/i18n/locales';
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -44,10 +45,13 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   setRequestLocale(locale);
   const messages = await getMessages();
+  const meta = localeMeta[locale as AppLocale];
+  const dir = meta?.dir ?? 'ltr';
 
   return (
     <html
       lang={locale}
+      dir={dir}
       className={`dark ${fraunces.variable} ${inter.variable} ${jetbrains.variable}`}
       suppressHydrationWarning
     >

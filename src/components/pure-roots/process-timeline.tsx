@@ -1,48 +1,26 @@
+import { getTranslations } from "next-intl/server";
 import { Reveal, Section, SectionHeading } from "./primitives";
 
-const STEPS = [
-  {
-    title: "Harvest & soil sample",
-    body: "Growers log the plot, date and varietal. A soil core is sent for trace-element fingerprinting.",
-    meta: "Day 0",
-  },
-  {
-    title: "Wooden kolhu press",
-    body: "Seeds are ground slowly in a wooden kolhu, kept below 40°C so nothing volatile is lost.",
-    meta: "Day 4",
-  },
-  {
-    title: "Independent assay",
-    body: "A third-party lab measures purity, erucic acid and peroxide value, then publishes the report.",
-    meta: "Day 6",
-  },
-  {
-    title: "Seal & ledger entry",
-    body: "Each bottle receives a unique code and QR; the batch record is hashed and sealed on-chain.",
-    meta: "Day 8",
-  },
-];
+export async function ProcessTimeline() {
+  const t = await getTranslations("sections.process");
 
-export function ProcessTimeline() {
+  const steps = [
+    { title: t("step1Title"), body: t("step1Body"), meta: t("step1Meta") },
+    { title: t("step2Title"), body: t("step2Body"), meta: t("step2Meta") },
+    { title: t("step3Title"), body: t("step3Body"), meta: t("step3Meta") },
+    { title: t("step4Title"), body: t("step4Body"), meta: t("step4Meta") },
+  ];
+
   return (
     <Section id="process">
-      <SectionHeading
-        eyebrow="Process"
-        title={<>Eight days, four signatures.</>}
-        blurb="Nothing is batched together, blended or backdated. The timeline for every bottle is public."
-      />
+      <SectionHeading eyebrow={t("eyebrow")} title={<>{t("title")}</>} blurb={t("blurb")} />
 
-      {/*
-        Rail geometry: markers are size-9 (2.25rem). The vertical line sits at
-        left: 1.125rem (half the marker) and is centered with -translate-x-1/2
-        so it bisects every circle exactly.
-      */}
       <ol className="relative space-y-10">
         <span
           aria-hidden
           className="absolute bottom-4 left-[1.125rem] top-4 w-px -translate-x-1/2 bg-hairline"
         />
-        {STEPS.map((s, i) => (
+        {steps.map((s, i) => (
           <li key={s.title} className="relative flex items-start gap-5 sm:gap-8">
             <span
               aria-hidden
@@ -56,9 +34,7 @@ export function ProcessTimeline() {
                   <h3 className="font-display text-xl">{s.title}</h3>
                   <span className="eyebrow text-[10px]">{s.meta}</span>
                 </div>
-                <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-                  {s.body}
-                </p>
+                <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-muted-foreground">{s.body}</p>
               </div>
             </Reveal>
           </li>

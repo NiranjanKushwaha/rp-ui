@@ -1,15 +1,26 @@
 'use client';
+import { useTranslations } from "next-intl";
 import { useCountUp, useInView } from "@/lib/motion";
 
-const STATS = [
-  { value: 14, suffix: "", label: "Partner micro-farms" },
-  { value: 48, suffix: "%", label: "Revenue to growers" },
-  { value: 99.8, suffix: "%", label: "Assayed purity", decimals: 1 },
-  { value: 38.2, suffix: "°C", label: "Peak press temp", decimals: 1 },
+const STAT_KEYS = [
+  { value: 14, suffix: "", key: "farms" as const },
+  { value: 48, suffix: "%", key: "revenue" as const },
+  { value: 99.8, suffix: "%", key: "purity" as const, decimals: 1 },
+  { value: 38.2, suffix: "°C", key: "temp" as const, decimals: 1 },
 ];
 
-function Stat({ value, suffix, label, decimals = 0, active }: {
-  value: number; suffix: string; label: string; decimals?: number; active: boolean;
+function Stat({
+  value,
+  suffix,
+  label,
+  decimals = 0,
+  active,
+}: {
+  value: number;
+  suffix: string;
+  label: string;
+  decimals?: number;
+  active: boolean;
 }) {
   const n = useCountUp(value, active);
   return (
@@ -24,12 +35,14 @@ function Stat({ value, suffix, label, decimals = 0, active }: {
 }
 
 export function StatsBand() {
+  const t = useTranslations("sections.stats");
   const { ref, inView } = useInView<HTMLDivElement>(0.35);
+
   return (
     <div ref={ref} className="grain border-y border-hairline bg-surface-2/60">
       <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-y divide-hairline px-5 sm:px-8 lg:grid-cols-4 lg:divide-y-0">
-        {STATS.map((s) => (
-          <Stat key={s.label} {...s} active={inView} />
+        {STAT_KEYS.map((s) => (
+          <Stat key={s.key} value={s.value} suffix={s.suffix} decimals={s.decimals} label={t(s.key)} active={inView} />
         ))}
       </div>
     </div>

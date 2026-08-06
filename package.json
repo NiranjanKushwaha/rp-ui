@@ -4,9 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run i18n:validate && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "i18n:sanitize": "node scripts/sanitize-overlays.mjs",
+    "i18n:merge": "node scripts/sanitize-overlays.mjs && node scripts/merge-section-overlays.mjs",
+    "i18n:audit": "node scripts/audit-locale-language.mjs --messages",
+    "i18n:validate": "node scripts/validate-i18n.mjs",
+    "i18n:check": "npm run i18n:merge && npm run i18n:validate && npm run i18n:audit"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

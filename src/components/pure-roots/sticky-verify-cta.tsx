@@ -1,9 +1,11 @@
 'use client';
 import { useEffect, useState } from "react";
 import { QrCode, ScanLine } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 /** Mobile-only sticky verify bar. Appears after the hero, hides near the footer. */
 export function StickyVerifyCta() {
+  const t = useTranslations("sections.stickyCta");
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -29,14 +31,14 @@ export function StickyVerifyCta() {
       <div className="glass mx-auto flex max-w-md items-center gap-3 rounded-full p-2 pl-4 shadow-lift">
         <span className="min-w-0 flex-1">
           <span className="block truncate font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-            Batch on your cap
+            {t("eyebrow")}
           </span>
-          <span className="block truncate text-sm font-medium">Check it in 3 seconds</span>
+          <span className="block truncate text-sm font-medium">{t("title")}</span>
         </span>
         <a
           href="#verify"
           className="tap focus-lux grid size-11 shrink-0 place-items-center rounded-full border border-hairline bg-secondary text-foreground"
-          aria-label="Scan QR code"
+          aria-label={t("scanAria")}
         >
           <QrCode className="size-5" aria-hidden />
         </a>
@@ -45,7 +47,7 @@ export function StickyVerifyCta() {
           className="sheen tap focus-lux inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-soft"
         >
           <ScanLine className="size-4" aria-hidden />
-          Verify
+          {t("verify")}
         </a>
       </div>
     </div>

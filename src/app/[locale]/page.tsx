@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import { Hero } from '@/components/pure-roots/hero';
 import { LiveTicker } from '@/components/pure-roots/live-ticker';
@@ -16,18 +16,19 @@ import { LuxButton } from '@/components/pure-roots/ui-kit';
 
 type Props = { params: Promise<{ locale: string }> };
 
-function ResultPreview() {
+async function ResultPreview() {
+  const t = await getTranslations('home');
   return (
     <Section id="results" className="bg-surface-2/35">
       <SectionHeading
-        eyebrow="Result states"
+        eyebrow={t('resultEyebrow')}
         align="center"
         title={
           <>
-            Three answers. <span className="gold-text">Never a maybe.</span>
+            {t('resultTitleBefore')} <span className="gold-text">{t('resultTitleEm')}</span>
           </>
         }
-        blurb="Every scan resolves to one of three certificates. Each one is designed to be read in a shop aisle, on a 360px screen, in either theme."
+        blurb={t('resultBlurb')}
       />
       <div className="grid gap-6">
         <Reveal>
@@ -44,11 +45,11 @@ function ResultPreview() {
       </div>
       <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
         <Link href="/verify/PR-114-0832">
-          <LuxButton size="lg">Open a full certificate</LuxButton>
+          <LuxButton size="lg">{t('openCertificate')}</LuxButton>
         </Link>
         <Link href="/verify">
           <LuxButton size="lg" variant="outline">
-            Verify your bottle
+            {t('verifyYourBottle')}
           </LuxButton>
         </Link>
       </div>
