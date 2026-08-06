@@ -1,13 +1,20 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { BadgeLabPass } from '@/components/BadgeLabPass';
+import { StatusBadge } from '@/components/pure-roots/ui-kit';
 
 type Props = { params: Promise<{ locale: string }> };
 
 const STUB_ROWS = [
-  { code: 'PR-114', farmer: 'Ramesh Yadav', lab: 'PASS', status: 'ACTIVE' },
-  { code: 'PR-116', farmer: 'Ramesh Yadav', lab: 'PENDING', status: 'PENDING' },
-  { code: 'PR-115', farmer: 'Sita Devi', lab: 'FAIL', status: 'FAILED' },
+  { code: 'PR-114', farmer: 'Ramesh Yadav', lab: 'PASS' as const, status: 'ACTIVE' as const },
+  { code: 'PR-116', farmer: 'Ramesh Yadav', lab: 'PENDING' as const, status: 'PENDING' as const },
+  { code: 'PR-115', farmer: 'Sita Devi', lab: 'FAIL' as const, status: 'FAILED' as const },
 ];
+
+function tone(value: string) {
+  const v = value.toUpperCase();
+  if (v === 'PASS' || v === 'ACTIVE') return 'pass' as const;
+  if (v === 'FAIL' || v === 'FAILED') return 'failed' as const;
+  return 'pending' as const;
+}
 
 export default async function AdminBatchesPage({ params }: Props) {
   const { locale } = await params;
@@ -15,36 +22,38 @@ export default async function AdminBatchesPage({ params }: Props) {
   const t = await getTranslations('admin');
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 md:py-10">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="font-display text-2xl font-semibold text-ink">
-            {t('batchesTitle')}
-          </h1>
-          <p className="mt-1 text-sm text-muted">{t('batchesBody')}</p>
-        </div>
-      </div>
+    <div className="grain mx-auto max-w-4xl px-5 py-10 sm:px-8 sm:py-14">
+      <h1 className="font-display text-2xl sm:text-3xl">{t('batchesTitle')}</h1>
+      <p className="mt-1 text-sm text-muted-foreground">{t('batchesBody')}</p>
 
-      <div className="mt-5 overflow-x-auto rounded-xl border border-border bg-surface shadow-sm">
+      <div className="lux-card mt-6 overflow-x-auto">
         <table className="w-full min-w-[480px] text-sm">
           <thead>
-            <tr className="border-b border-border text-left text-[11px] font-semibold uppercase tracking-[1px] text-muted">
-              <th className="px-4 py-3">{t('thBatch')}</th>
-              <th className="px-4 py-3">{t('thFarmer')}</th>
-              <th className="px-4 py-3">{t('thLab')}</th>
-              <th className="px-4 py-3">{t('thStatus')}</th>
+            <tr className="border-b border-hairline text-left">
+              <th className="px-5 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                {t('thBatch')}
+              </th>
+              <th className="px-5 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                {t('thFarmer')}
+              </th>
+              <th className="px-5 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                {t('thLab')}
+              </th>
+              <th className="px-5 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                {t('thStatus')}
+              </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-border">
+          <tbody>
             {STUB_ROWS.map((row) => (
-              <tr key={row.code} className="transition-colors hover:bg-paper">
-                <td className="px-4 py-3 font-semibold text-ink">{row.code}</td>
-                <td className="px-4 py-3 text-muted">{row.farmer}</td>
-                <td className="px-4 py-3">
-                  <BadgeLabPass status={row.lab} />
+              <tr key={row.code} className="border-b border-hairline/60 last:border-0 hover:bg-accent/25">
+                <td className="px-5 py-3.5 font-mono text-xs font-semibold">{row.code}</td>
+                <td className="px-5 py-3.5 text-muted-foreground">{row.farmer}</td>
+                <td className="px-5 py-3.5">
+                  <StatusBadge tone={tone(row.lab)}>{row.lab}</StatusBadge>
                 </td>
-                <td className="px-4 py-3">
-                  <BadgeLabPass status={row.status} />
+                <td className="px-5 py-3.5">
+                  <StatusBadge tone={tone(row.status)}>{row.status}</StatusBadge>
                 </td>
               </tr>
             ))}

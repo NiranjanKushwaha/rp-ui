@@ -1,47 +1,16 @@
+import { SkeletonRow } from '@/components/pure-roots/ui-kit';
+
 export default function VerifyResultLoading() {
   return (
-    <div className="mx-auto max-w-5xl animate-pulse space-y-4 px-4 py-6 sm:px-6 md:py-8">
-      <div className="flex items-center gap-3 rounded-xl border border-border bg-surface p-4 sm:p-5">
-        <div className="h-11 w-11 shrink-0 rounded-full bg-hero-mist" />
-        <div className="flex-1 space-y-2">
-          <div className="h-5 w-2/3 rounded bg-hero-mist" />
-          <div className="h-3.5 w-1/2 rounded bg-hero-mist" />
+    <div className="grain mx-auto w-full max-w-5xl space-y-6 px-5 py-10 sm:px-8 sm:py-14">
+      <SkeletonRow className="h-10 w-40 rounded-full" />
+      <SkeletonRow className="h-64 w-full rounded-2xl" />
+      <div className="grid gap-6 lg:grid-cols-[1.35fr_0.65fr]">
+        <SkeletonRow className="h-80 w-full rounded-2xl" />
+        <div className="space-y-6">
+          <SkeletonRow className="h-64 w-full rounded-2xl" />
+          <SkeletonRow className="h-48 w-full rounded-2xl" />
         </div>
-      </div>
-
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="space-y-3 rounded-2xl border border-border bg-surface p-5 sm:p-6">
-          <div className="h-6 w-1/2 rounded bg-hero-mist" />
-          <div className="h-3 w-2/3 rounded bg-hero-mist" />
-          {[0, 1, 2, 3].map((i) => (
-            <div key={i} className="flex justify-between border-t border-border pt-3">
-              <div className="h-3.5 w-1/3 rounded bg-hero-mist" />
-              <div className="h-3.5 w-1/4 rounded bg-hero-mist" />
-            </div>
-          ))}
-          <div className="h-11 w-full rounded-lg bg-hero-mist" />
-        </div>
-        <div className="space-y-4 rounded-2xl bg-gradient-to-br from-forest-deep to-forest-light p-5 sm:p-6">
-          <div className="h-3 w-24 rounded bg-white/20" />
-          <div className="flex items-center gap-4">
-            <div className="h-16 w-16 rounded-full bg-white/20" />
-            <div className="space-y-2">
-              <div className="h-5 w-36 rounded bg-white/20" />
-              <div className="h-3.5 w-28 rounded bg-white/20" />
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="h-10 rounded bg-white/10" />
-            <div className="h-10 rounded bg-white/10" />
-          </div>
-        </div>
-      </div>
-
-      <div className="space-y-3 rounded-2xl border border-border bg-surface p-5 sm:p-6">
-        <div className="h-6 w-1/3 rounded bg-hero-mist" />
-        <div className="h-3.5 w-full rounded bg-hero-mist" />
-        <div className="h-3.5 w-3/4 rounded bg-hero-mist" />
-        <div className="h-11 w-48 rounded-lg bg-hero-mist" />
       </div>
     </div>
   );
