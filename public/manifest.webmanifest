@@ -1,17 +1,30 @@
 {
   "name": "Pure Roots",
   "short_name": "Pure Roots",
-  "description": "Traceable cold-pressed mustard oil — verify farm to bottle.",
+  "description": "Lab-verified, farm-traced cold-pressed mustard oil. Verify any bottle yourself.",
   "start_url": "/en",
   "display": "standalone",
-  "background_color": "#F2F6F4",
-  "theme_color": "#1F8F88",
+  "background_color": "#14241C",
+  "theme_color": "#14241C",
   "lang": "en",
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ]
 }

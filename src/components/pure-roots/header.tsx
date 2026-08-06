@@ -11,6 +11,7 @@ const LINKS = [
   { href: "#proof", label: "Proof" },
   { href: "#results", label: "Results" },
   { href: "#provenance", label: "Provenance" },
+  { href: "#process", label: "Process" },
   { href: "#guarantee", label: "Guarantee" },
 ];
 

@@ -32,22 +32,33 @@ export function ProcessTimeline() {
         blurb="Nothing is batched together, blended or backdated. The timeline for every bottle is public."
       />
 
-      <ol className="relative ml-1 border-l border-hairline pl-8 sm:pl-12">
+      {/*
+        Rail geometry: markers are size-9 (2.25rem). The vertical line sits at
+        left: 1.125rem (half the marker) and is centered with -translate-x-1/2
+        so it bisects every circle exactly.
+      */}
+      <ol className="relative space-y-10">
+        <span
+          aria-hidden
+          className="absolute bottom-4 left-[1.125rem] top-4 w-px -translate-x-1/2 bg-hairline"
+        />
         {STEPS.map((s, i) => (
-          <li key={s.title} className="relative pb-10 last:pb-0">
+          <li key={s.title} className="relative flex items-start gap-5 sm:gap-8">
             <span
               aria-hidden
-              className="absolute -left-[2.3rem] grid size-9 place-items-center rounded-full border border-hairline bg-card font-mono text-xs text-primary shadow-soft sm:-left-[3.55rem]"
+              className="relative z-10 grid size-9 shrink-0 place-items-center rounded-full border border-hairline bg-card font-display text-xs tabular-nums text-primary shadow-soft"
             >
               {String(i + 1).padStart(2, "0")}
             </span>
-            <Reveal delay={i * 90}>
+            <Reveal delay={i * 90} className="min-w-0 flex-1">
               <div className="lux-card lux-card-hover p-6">
                 <div className="flex flex-wrap items-baseline justify-between gap-2">
                   <h3 className="font-display text-xl">{s.title}</h3>
                   <span className="eyebrow text-[10px]">{s.meta}</span>
                 </div>
-                <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-muted-foreground">{s.body}</p>
+                <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                  {s.body}
+                </p>
               </div>
             </Reveal>
           </li>
