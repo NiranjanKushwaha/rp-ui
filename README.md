@@ -26,5 +26,9 @@ npm run dev
 - `/{locale}` — Homepage  
 - `/{locale}/verify` — Lookup  
 - `/{locale}/verify/[code]` — Result  
-- `/{locale}/admin/login` — stub  
-- `/{locale}/admin/batches` — stub list  
+- `/{locale}/admin/login` — OTP stub (open console link)  
+- `/{locale}/admin/batches` — live batches list  
+- `/{locale}/admin/batches/[code]` — detail, lab record, lifecycle  
+- `/{locale}/admin/farmers` — live farmers list  
+
+Requires `rp-backend` on `:4000` (`NEXT_PUBLIC_API_URL`).

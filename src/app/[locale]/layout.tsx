@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { Header } from '@/components/pure-roots/header';
 import { Footer } from '@/components/pure-roots/footer';
+import { ChromeGate } from '@/components/pure-roots/chrome-gate';
 import { ThemeProvider } from '@/lib/theme';
 import { routing } from '@/i18n/routing';
 import { localeMeta, type AppLocale } from '@/i18n/locales';
@@ -70,9 +71,13 @@ export default async function LocaleLayout({ children, params }: Props) {
       <body className="flex min-h-dvh flex-col bg-background text-foreground antialiased">
         <ThemeProvider>
           <NextIntlClientProvider messages={messages}>
-            <Header />
+            <ChromeGate>
+              <Header />
+            </ChromeGate>
             <main className="flex-1">{children}</main>
-            <Footer />
+            <ChromeGate>
+              <Footer />
+            </ChromeGate>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

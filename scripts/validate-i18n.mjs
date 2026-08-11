@@ -56,36 +56,38 @@ function getByPath(obj, path) {
   }, obj);
 }
 
+function topKeys(obj) {
+  return isPlainObject(obj) ? Object.keys(obj) : [];
+}
+
 function main() {
   const en = JSON.parse(readFileSync(join(MESSAGES_DIR, 'en.json'), 'utf8'));
   const requiredPaths = collectLeafPaths(en);
+  const enTop = topKeys(en).join(',');
   let failed = false;
 
-  console.log(`Required leaf keys (from en.json): ${requiredPaths.length}\n`);
-  console.log('Locale | missing→en | empty | overlay keys');
-  console.log('-------|------------|-------|-------------');
+  console.log(`Required leaf keys (from en.json): ${requiredPaths.length}`);
+  console.log(`Required top-level order: ${enTop}\n`);
+  console.log('Locale | missing | empty | overlay | topOrder');
+  console.log('-------|---------|-------|---------|---------');
 
   for (const locale of LOCALES) {
-    if (locale === 'en') {
-      console.log(`${locale.padEnd(6)} | ${String(0).padStart(10)} | ${String(0).padStart(5)} | ${requiredPaths.length}`);
-      continue;
-    }
-
     const localePath = join(MESSAGES_DIR, `${locale}.json`);
     if (!existsSync(localePath)) {
-      console.log(`${locale.padEnd(6)} | ${String(requiredPaths.length).padStart(10)} | ${String(0).padStart(5)} | 0 (file missing → all English)`);
+      console.log(`${locale.padEnd(6)} | ${String(requiredPaths.length).padStart(7)} | ${String(0).padStart(5)} | ${String(0).padStart(7)} | MISSING`);
+      failed = true;
       continue;
     }
 
     const overlay = JSON.parse(readFileSync(localePath, 'utf8'));
     const merged = deepMergeMessages(en, overlay);
+    const orderOk = topKeys(overlay).join(',') === enTop;
 
     let missing = 0;
     let empty = 0;
 
     for (const path of requiredPaths) {
       const value = getByPath(merged, path);
-      const enValue = getByPath(en, path);
       const overlayValue = getByPath(overlay, path);
 
       if (typeof value !== 'string' || !value.trim()) {
@@ -99,18 +101,28 @@ function main() {
       }
     }
 
+    if (missing > 0) {
+      failed = true;
+      console.error(`  ERROR ${locale}: ${missing} keys missing from locale file (must match en.json)`);
+    }
+    if (!orderOk) {
+      failed = true;
+      console.error(`  ERROR ${locale}: top-level key order differs from en.json`);
+      console.error(`    got: ${topKeys(overlay).join(',')}`);
+    }
+
     const overlayKeys = collectLeafPaths(overlay).length;
     console.log(
-      `${locale.padEnd(6)} | ${String(missing).padStart(10)} | ${String(empty).padStart(5)} | ${overlayKeys}`,
+      `${locale.padEnd(6)} | ${String(missing).padStart(7)} | ${String(empty).padStart(5)} | ${String(overlayKeys).padStart(7)} | ${orderOk ? 'match' : 'DIFF'}`,
     );
   }
 
   if (failed) {
-    console.error('\nValidation FAILED: empty strings after merge.');
+    console.error('\nValidation FAILED: every locale must have all keys in en.json order.');
     process.exit(1);
   }
 
-  console.log('\nValidation passed: every locale resolves all keys (missing overlays fall back to English).');
+  console.log('\nValidation passed: every locale has all keys in en.json structure/order.');
 }
 
 main();
